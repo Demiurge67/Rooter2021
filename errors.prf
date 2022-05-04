@@ -44,3 +44,13 @@ mipsel-openwrt-linux-musl-cpp: warning: '-x assembler-with-cpp' after last input
 mipsel-openwrt-linux-musl-cpp: fatal error: no input files
 compilation terminated.
 make[5]: *** [Makefile:183: /home/dem/R0019/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/image-HLK-7621A.dtb] Error 1
+
+*****************************
+
+cat /home/dem/R002102/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/tmp/openwrt-ramips-mt7621-wifire_s1500-nbn-squashfs-sysupgrade.bin.tmp >> /home/dem/R002102/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/tmp/openwrt-ramips-mt7621-wifire_s1500-nbn-squashfs-sysupgrade.bin
+rm /home/dem/R002102/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/tmp/openwrt-ramips-mt7621-wifire_s1500-nbn-squashfs-sysupgrade.bin.tmp
+/home/dem/R002102/scripts/sercomm.sh -a -k /home/dem/R002102/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/wifire_s1500-nbn-kernel.bin -r /home/dem/R002102/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/tmp/openwrt-ramips-mt7621-wifire_s1500-nbn-squashfs-sysupgrade.bin -l '0x1700100' -s '0x1f00000' -o /home/dem/R002102/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/tmp/openwrt-ramips-mt7621-wifire_s1500-nbn-squashfs-sysupgrade.bin.hdrkrn
+bash: /home/dem/R002102/scripts/sercomm.sh: Permission denied
+make[5]: *** [Makefile:208: /home/dem/R002102/build_dir/target-mipsel_24kc_musl/linux-ramips_mt7621/tmp/openwrt-ramips-mt7621-wifire_s1500-nbn-squashfs-sysupgrade.bin] Error 126
+make[5]: Leaving directory '/home/dem/R002102/target/linux/ramips/image'
+
