@@ -6,30 +6,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zerotier
-<<<<<<< HEAD
-<<<<<<< HEAD
-PKG_VERSION:=1.6.5
-PKG_RELEASE:=1
-
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/zerotier/ZeroTierOne/tar.gz/$(PKG_VERSION)?
-PKG_HASH:=a437ec9e8a4987ed48c0e5af3895a057dcc0307ab38af90dd7729a131097f222
-=======
-#PKG_VERSION:=1.8.9 - dublicated header
-#PKG_RELEASE:=$(AUTORELEASE)
-
-#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-#PKG_SOURCE_URL:=https://codeload.github.com/zerotier/ZeroTierOne/tar.gz/$(PKG_VERSION)?
-#PKG_HASH:=78fc0dda08d022b4fff9b88449d21a62016452304e930d4ee8393fe2930e65a8
-#>>>>>>> 4e477f394caa6554ed9a3e8d2e7579834215a393
-#=======
 PKG_VERSION:=1.8.9
 PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/zerotier/ZeroTierOne/tar.gz/$(PKG_VERSION)?
 PKG_HASH:=78fc0dda08d022b4fff9b88449d21a62016452304e930d4ee8393fe2930e65a8
->>>>>>> 4e477f394caa6554ed9a3e8d2e7579834215a393
 PKG_BUILD_DIR:=$(BUILD_DIR)/ZeroTierOne-$(PKG_VERSION)
 
 PKG_MAINTAINER:=Moritz Warning <moritzwarning@web.de>
