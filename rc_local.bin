@@ -1,0 +1,5 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+echo "05c6 90d5" > /sys/bus/usb-serial/drivers/option1/new_id
+echo "1e2d 00b3" > /sys/bus/usb/drivers/qmi_wwan/new_id
+exit 0
