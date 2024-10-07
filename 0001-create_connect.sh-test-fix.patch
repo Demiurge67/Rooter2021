@@ -1,0 +1,31 @@
+From f42e0dab3766de774db20c15b2b6f1268d5ad3f2 Mon Sep 17 00:00:00 2001
+From: koshev-msk <konst.shell@gmail.com>
+Date: Mon, 7 Oct 2024 15:03:55 +0300
+Subject: [PATCH] create_connect.sh: test fix
+
+---
+ .../files/usr/lib/rooter/connect/create_connect.sh            | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/package/rooter/ext-rooter-basic/files/usr/lib/rooter/connect/create_connect.sh b/package/rooter/ext-rooter-basic/files/usr/lib/rooter/connect/create_connect.sh
+index ba0e7ad6..275a0ff7 100755
+--- a/package/rooter/ext-rooter-basic/files/usr/lib/rooter/connect/create_connect.sh
++++ b/package/rooter/ext-rooter-basic/files/usr/lib/rooter/connect/create_connect.sh
+@@ -1,4 +1,4 @@
+- #!/bin/sh
++#!/bin/sh
+ 
+ ROOTER=/usr/lib/rooter
+ ROOTER_LINK="/tmp/links"
+@@ -491,7 +491,7 @@ case $PROT in
+ 	;;
+ esac
+ 
+-OX=$(for a in /sys/class/tty/*; do readlink $a; done | grep "$MATCH" | tr '\n' ' ' | xargs -r -n1 basename)
++OX=$(for a in /sys/class/tty/*; do readlink $a | awk -F [\/] '/ttyUSB|ttyACM|ttyHS/{print $NF}')
+ TTYDEVS=$(echo "$OX" | grep -o ttyUSB[0-9])
+ if [ $? -ne 0 ]; then
+ 	TTYDEVS=$(echo "$OX" | grep -o ttyACM[0-9])
+-- 
+2.39.2
+
