@@ -159,7 +159,7 @@ void __init bcm47xx_prom_highmem_init(void)
 	if (mem != (128 << 20))
 		return;
 
-	early_tlb_init_bcm(); /* Используем новую функцию */
+	early_tlb_init();
 
 	/*
 	 * Логика из ASUSWRT (prom.c строка 170-174).
@@ -169,7 +169,7 @@ void __init bcm47xx_prom_highmem_init(void)
 	 *      0x90000000      0xd0000000      (2nd: 256MB)
 	 */
 
-	add_tmptlb_entry_bcm(ENTRYLO(SI_SDRAM_R2),
+	add_temporary_entry(ENTRYLO(SI_SDRAM_R2),
 			    ENTRYLO(SI_SDRAM_R2 + (256 << 20)),
 			    EXTVBASE, PM_256M);
 
@@ -184,7 +184,7 @@ void __init bcm47xx_prom_highmem_init(void)
 	if (!extmem)
 		return;
 
-	pr_info("***Found %lu MiB of fucking extra memory\n", extmem >> 20);
+	pr_info("Found %lu MiB of extra memory\n", extmem >> 20);
 
 	/*
 	 * Логика регистрации из ASUSWRT (prom.c строка 243).
@@ -202,7 +202,7 @@ void __init bcm47xx_prom_highmem_init(void)
 			pr_debug("MIPS 74K: adjusting highmem region by -0x1000\n");
 		}
 
-		pr_info("*** Registering fucking highmem at phys 0x%lx, size %lu MiB\n",
+		pr_info("Registering highmem at phys 0x%lx, size %lu MiB\n",
 			region_start, extmem >> 20);
 
 		/* Используем add_memory_region для совместимости с bootinfo */
