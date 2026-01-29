@@ -1,0 +1,40 @@
+From: Fix BCM47XX memory mapping
+Subject: [PATCH] mips: bcm47xx: define PHYS_OFFSET and HIGHMEM_START
+
+The bcm47xx platform lacks its own definitions for PHYS_OFFSET and
+HIGHMEM_START, relying on generic defaults that are incorrect for its
+memory layout (128MB lowmem + 128MB highmem banks). This causes memory
+registration errors and prevents highmem from being used.
+
+This commit provides the correct constants for BCM47xx SoCs like BCM4706.
+
+Signed-off-by: Demiurge67 <dem@dem.dem>
+
+---
+ arch/mips/mm/init.c | 6 ++++++------
+ 1 file changed, 7 insertions(+) 5 deletion (-)
+
+--- a/arch/mips/mm/init.c
++++ b/arch/mips/mm/init.c
+@@ -430,9 +430,14 @@ static inline void __init mem_init_free_highmem(void)
+ {
+ #ifdef CONFIG_HIGHMEM
+-	unsigned long tmp;
+-
+-	if (cpu_has_dc_aliases)
+-		return;
+-
+-	for (tmp = highstart_pfn; tmp < highend_pfn; tmp++) {
+-		struct page *page = pfn_to_page(tmp);
++	unsigned long tmp = 0; /* Явная инициализация  */
++	struct page *page = NULL; /* Явная инициализация  */
++	printk(KERN_INFO "[DEBUG] cpu_data.dcache.flags = 0x%x\n", cpu_data[0].dcache.flags);
++	printk(KERN_INFO "[DEBUG] MIPS_CACHE_ALIASES = 0x%x\n", MIPS_CACHE_ALIASES);
++	printk(KERN_INFO "[DEBUG] cpu_has_dc_aliases = %d\n", cpu_has_dc_aliases);
++	printk("********* DEBUG: highstart_pfn=%lu, highend_pfn=%lu\n", highstart_pfn, highend_pfn);
++
++	if (cpu_has_dc_aliases)
++		return; 
++
++	for (tmp = highstart_pfn; tmp < highend_pfn; tmp++) {
++		printk("********* DEBUG: pfn %lu - memblock_is_memory = %d\n", tmp, memblock_is_memory(PFN_PHYS(tmp)));

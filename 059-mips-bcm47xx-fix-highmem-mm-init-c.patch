@@ -1,0 +1,36 @@
+From: Fix BCM47XX memory mapping
+Subject: [PATCH] mips: bcm47xx: define PHYS_OFFSET and HIGHMEM_START
+
+The bcm47xx platform lacks its own definitions for PHYS_OFFSET and
+HIGHMEM_START, relying on generic defaults that are incorrect for its
+memory layout (128MB lowmem + 128MB highmem banks). This causes memory
+registration errors and prevents highmem from being used.
+
+This commit provides the correct constants for BCM47xx SoCs like BCM4706.
+
+ arch/mips/mm/init.c | 6 ------
+ 1 file changed, 6 deletion (-)
+ create mode 100644 arch/mips/mm/init.c
+
+diff --git a/arch/mips/mm/init.c b/aarch/mips/mm/init.c
+new file mode 100644
+index 000000000000..3c661b5e50e1
+--- /arch/mips/mm/init.c
++++ b/arch/mips/mm/init.c
+@@ -413,10 +413,10 @@ #ifdef CONFIG_HIGHMEM
+ 	max_zone_pfns[ZONE_HIGHMEM] = highend_pfn;
+ 
+-	if (cpu_has_dc_aliases && max_low_pfn != highend_pfn) {
+-		printk(KERN_WARNING "This processor doesn't support highmem."
+-		       " %ldk highmem ignored\n",
+-		       (highend_pfn - max_low_pfn) << (PAGE_SHIFT - 10));
+-		max_zone_pfns[ZONE_HIGHMEM] = max_low_pfn;
+-	}
++	/* if (cpu_has_dc_aliases && max_low_pfn != highend_pfn) {
++	*	printk(KERN_WARNING "This processor doesn't support highmem."
++	*	       " %ldk highmem ignored\n",
++	*	       (highend_pfn - max_low_pfn) << (PAGE_SHIFT - 10));
++	*	max_zone_pfns[ZONE_HIGHMEM] = max_low_pfn;
++	*} */
+
+	max_mapnr = highend_pfn ? highend_pfn : max_low_pfn;

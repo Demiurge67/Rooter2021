@@ -1,0 +1,27 @@
+--- a/arch/mips/bcm47xx/setup.c
++++ b/arch/mips/bcm47xx/setup.c
+@@ -28,6 +28,11 @@
+ #include <bcm47xx.h>
+ #include <bcm47xx_board.h>
+
++/* Прототип функции инициализации highmem из prom.c */
++#if defined(CONFIG_BCM47XX_BCMA) && defined(CONFIG_HIGHMEM)
++void __init bcm47xx_prom_highmem_init(void);
++#endif
++
+ union bcm47xx_bus bcm47xx_bus;
+ EXPORT_SYMBOL(bcm47xx_bus);
+ --- a/arch/mips/bcm47xx/prom.c
++++ b/arch/mips/bcm47xx/prom.c
+@@ -113,6 +113,11 @@ static __init void prom_init_mem(void)
+ 	memblock_add(0, mem);
+ }
+
++#if defined(CONFIG_BCM47XX_BCMA) && defined(CONFIG_HIGHMEM)
++/* Прототип функции для инициализации highmem */
++void __init bcm47xx_prom_highmem_init(void);
++#endif
++
+ /*
+  * This is the first serial on the chip common core, it is at this position
+  * for sb (ssb) and ai (bcma) bus.

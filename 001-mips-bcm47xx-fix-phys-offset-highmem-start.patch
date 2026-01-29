@@ -1,0 +1,14 @@
+--- a/arch/mips/bcm47xx/prom.c
++++ b/arch/mips/bcm47xx/prom.c
+@@ -116,6 +116,10 @@ static __init void prom_init_mem(void)
+ #if defined(CONFIG_BCM47XX_BCMA) && defined(CONFIG_HIGHMEM)
+ 
+ #define EXTVBASE	0xc0000000
+-#define ENTRYLO(x)	((pte_val(pfn_pte((x) >> _PFN_SHIFT, PAGE_KERNEL_UNCACHED)) >> 6) | 1)
++/* Исправленная формула ENTRYLO для ядра 5.15 */
++#define ENTRYLO(x)	((pte_val(pfn_pte((x) >> PAGE_SHIFT, PAGE_KERNEL)) >> 6) | 1)
++
++/* Физический адрес второй банки памяти (аналог SI_SDRAM_R2 из ASUSWRT) */
++#define SI_SDRAM_R2	0x80000000
+ 
+ #include <asm/tlbflush.h>

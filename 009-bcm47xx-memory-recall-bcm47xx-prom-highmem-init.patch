@@ -1,0 +1,15 @@
+--- a/arch/mips/bcm47xx/prom.c
++++ b/arch/mips/bcm47xx/prom.c
+@@ -110,6 +110,12 @@ static __init void prom_init_mem(void)
+ void __init prom_init(void)
+ {
+ 	prom_init_mem();
++
++#if defined(CONFIG_BCM47XX_BCMA) && defined(CONFIG_HIGHMEM)
++	/* Инициализация highmem после определения lowmem */
++	bcm47xx_prom_highmem_init();
++#endif
++
+ 	setup_8250_early_printk_port(CKSEG1ADDR(BCM47XX_SERIAL_ADDR), 0, 0);
+ }
+ 
